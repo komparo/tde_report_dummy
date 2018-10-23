@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+*.history
+.certigo
+report
+data
+modules

@@ -1,0 +1,13 @@
+---
+title: "Cats > Trajectory differential expression"
+output: html_document
+---
+
+I have no idea what TDE method is best, but what I do know is that cats are cute!
+
+![](https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&h=350)
+
+```{r}
+inputs[["expression"]]
+```
+
