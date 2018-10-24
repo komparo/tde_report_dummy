@@ -33,12 +33,17 @@ datasets %>%
 ## Evaluation
 
 ```{r}
-scores <- inputs[["accuracy"]] %>% 
-  map(jsonlite::read_json) %>% 
-  purrr::flatten()
+scores <- 
+  tibble(
+    accuracy = map_dbl(inputs[["accuracy"]], jsonlite::read_json, simplifyVector = TRUE)
+)
+
+scores %>% 
+  gather("metric", "value") %>% 
+  ggplot(aes(metric, value)) +
+    geom_boxplot() +
+    theme_bw()
 ```
-
-
 
 ## Cats 
 
