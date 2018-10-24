@@ -12,7 +12,7 @@ source("modules/metric/workflow.R")
 datasets <- generate_dataset_calls(
   workflow_folder = "modules/dataset",
   datasets_folder = "data/datasets",
-  dataset_design = dataset_design_all[1:2, ]
+  dataset_design = dataset_design_all[1:4, ]
 ) %>% call_collection(id = "datasets")
 
 methods <- generate_method_calls(
@@ -36,12 +36,10 @@ report <- generate_report_calls(
 ) %>% call_collection(id = "reports")
 
 workflow <- workflow(
-  list(
-    datasets,
-    methods,
-    metrics,
-    report
-  )
+  datasets,
+  methods,
+  metrics,
+  report
 )
 
 workflow$reset()
