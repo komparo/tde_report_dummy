@@ -14,7 +14,7 @@ generate_report_calls <- function(datasets, methods, metrics, workflow_folder = 
     ) %>% c(
       datasets$outputs %>% select(meta, expression) %>% map(object_set),
       methods$outputs %>% select(tde_overall) %>% map(object_set),
-      metrics$outputs %>% select()
+      metrics$outputs %>% select(accuracy) %>% map(object_set)
     ),
     outputs = str_glue("{reports_folder}/index.html") %>% map(derived_file) %>% set_names("report")
   )
