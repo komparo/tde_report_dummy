@@ -6,8 +6,9 @@ output: html_document
 # Trajectory differential expression {.tabset}
 
 ## Datasets
-```{r, echo=FALSE, include=FALSE}
+```{r setup, echo=FALSE, include=FALSE}
 library(tidyverse)
+knitr::opts_knit$set(root.dir = knit_root_dir)
 ```
 
 ```{r}
@@ -19,12 +20,16 @@ datasets <- inputs[["expression"]] %>%
       n_features = ncol(expression)
     )
   })
+```
 
+```{r}
 datasets %>% 
-  ggplot(aes(n_cells)) +
-   geom_density() +
+  gather("feature", "n") %>% 
+  ggplot(aes(feature, n)) +
+   geom_boxplot() +
   theme_bw()
 ```
+
 
 ## Cats 
 
