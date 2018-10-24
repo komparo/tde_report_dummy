@@ -30,6 +30,15 @@ datasets %>%
   theme_bw()
 ```
 
+## Evaluation
+
+```{r}
+scores <- inputs[["accuracy"]] %>% 
+  map(jsonlite::read_json) %>% 
+  purrr::flatten()
+```
+
+
 
 ## Cats 
 
