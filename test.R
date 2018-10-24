@@ -6,11 +6,11 @@ pull_or_clone <- function(repo, local_path) {
   }
 }
 
-pull_or_clone("https://github.com/komparo/tde_method_random", local_path = "modules/method")
+pull_or_clone("https://github.com/komparo/tde_dataset_dyntoy", local_path = "modules/dataset")
 pull_or_clone("https://github.com/komparo/tde_method_random", local_path = "modules/method")
 pull_or_clone("https://github.com/komparo/tde_metric_dummy", local_path = "modules/metric")
 
-source("modules/metric/workflow.R")
+source("modules/dataset/workflow.R")
 datasets <- generate_dataset_calls(
   workflow_folder = "modules/dataset",
   datasets_folder = "data/datasets",
@@ -25,7 +25,7 @@ methods <- generate_method_calls(
   models_folder = "data/models"
 ) %>% call_collection(id = "methods")
 
-source("modules/dataset/workflow.R")
+source("modules/metric/workflow.R")
 metrics <- generate_metric_calls(
   workflow_folder = "modules/metric",
   metric_design = metric_design_all[1, ],
