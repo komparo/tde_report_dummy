@@ -11,7 +11,7 @@ env:
   - secure: MaRIC2inmPs6HCElvx1p9e1zpbBn4EP49LpfwUl6aquao9FPjSFrVKwCrIfG32DZtKURZI9BGk+k5fMr9vmHe8iruOiaS3EVTS6//sJBcPHulXJGf9IPRlBrXLGzenTVahxgsobIjIHJlvjRFG+/4cJgusLeNH/9lCwkLhvZWuZgy0vp/8LZhy25uczeoIEG4mialkqAdnJer9vaDzIpG3vT0qSVM3k+W9PbvwdvdQTGNa6dZ/Z9PAJtXo9UDBQ448KakMze4Fmw0gI+t2+LaDDoEE4oLJ8/qS42e5M22MldYCkIiGWU34EIEHyvzTTj0RkLP0tTqJ5OXwh5dCOTVVso7EWFsNUwkT+aqzmBWpfAw1nDO42nPRwkB5D824I3HN6tLSz8gxdT+zoREQl0YH+wfIGP5e4NJkvUoYw96UdlXu3xSkJJ3FkeqrDNlTjemWC/MYCpCFm2tEFZz7HVtTMGCQHqSo0mx82RBLabU1YSaZf6dNbLHVdJJcHEq5j4uW/1FCNaykJ2Lz8VZ7ABYck0TOPTN8aaoJXDY2W/QDOM7zSHjW831+37RXPSIN/quVd1q+NY8jzOn4pZddCRJ53yIYbXWly4wX7uXTvSrHP0tcum2jVbKq7utLzpI/X2tu6d4kSm3Q/sqEQsJ4Z7O0vJ36Tiq0XLBVkhZcCOdNQ=
 before_install:
 - git clone https://github.com/komparo/travis_scripts.git
-- '[[ -z "${DOCKERHUB_PASSWORD}" ]] && echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin'
+- '[[ ! -z "${DOCKERHUB_PASSWORD}" ]] && echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin'
 - docker pull ${DOCKERHUB_ORGANISATION}/${DOCKERHUB_REPO} || true
 install:
 - R -e "install.packages('devtools')"
