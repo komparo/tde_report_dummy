@@ -13,7 +13,9 @@ before_install:
 - git clone https://github.com/komparo/travis_scripts.git
 - |
   if [[ -z "${DOCKERHUB_PASSWORD}" ]]; then
-    echo "$DOCKERHUB_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+    echo "Not logging in to dockerhub"
+  else
+    echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
   fi
 - docker pull ${DOCKERHUB_ORGANISATION}/${DOCKERHUB_REPO} || true
 install:
