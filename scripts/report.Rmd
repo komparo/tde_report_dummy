@@ -12,18 +12,18 @@ knitr::opts_knit$set(root.dir = knit_root_dir)
 ```
 
 ```{r}
-datasets <- inputs[["expression"]] %>% 
-  map(read.table, row.names = 1, header = TRUE, sep = ",") %>% 
-  map_df(function(expression) {
-    tibble(
-      n_cells = nrow(expression),
-      n_features = ncol(expression)
-    )
-  })
+datasets <- inputs[["datasets"]] %>% 
+  as_tibble() %>% 
+  mutate(
+    expression = map(expression, read.table, row.names = 1, header = TRUE, sep = ","),
+    n_cells = map_int(expression, nrow),
+    n_features = map_int(expression, ncol)
+  )
 ```
 
 ```{r}
 datasets %>% 
+  select(n_cells, n_features) %>% 
   gather("feature", "n") %>% 
   ggplot(aes(feature, n)) +
    geom_boxplot() +
@@ -33,12 +33,14 @@ datasets %>%
 ## Evaluation
 
 ```{r}
-scores <- 
-  tibble(
-    accuracy = map_dbl(inputs[["accuracy"]], jsonlite::read_json, simplifyVector = TRUE)
-)
+scores <- inputs$scores %>% 
+  as_tibble() %>% 
+  mutate(
+    accuracy = map_dbl(accuracy, jsonlite::read_json, simplifyVector = TRUE)
+  )
 
 scores %>% 
+  select(accuracy) %>% 
   gather("metric", "value") %>% 
   ggplot(aes(metric, value)) +
     geom_boxplot() +
