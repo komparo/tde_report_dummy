@@ -3,9 +3,11 @@ title: "Trajectory differential expression and cats"
 output: html_document
 ---
 
-# Trajectory differential expression {.tabset}
+# Cats 
 
-## Datasets
+![](https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&h=350)
+
+# Datasets
 ```{r setup, echo=FALSE, include=FALSE}
 library(tidyverse)
 knitr::opts_knit$set(root.dir = knit_root_dir)
@@ -30,7 +32,7 @@ datasets %>%
   theme_bw()
 ```
 
-## Evaluation
+# Evaluation
 
 ```{r}
 scores <- inputs$scores %>% 
@@ -47,6 +49,8 @@ scores %>%
     theme_bw()
 ```
 
-## Cats 
+# Conclusion 🐈
 
-![](https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&h=350)
+Cats are the best, dummy method is second
+
+Meow.
