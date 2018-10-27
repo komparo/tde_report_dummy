@@ -2,14 +2,12 @@ library(certigo)
 
 datasets <- load_call_git(
   "https://github.com/komparo/tde_dataset_dyntoy",
-  "modules/dataset",
   derived_file_directory = "results/datasets"
 )
 datasets$design <- datasets$design[1, ]
 
 models <- load_call_git(
   "https://github.com/komparo/tde_method_random",
-  "modules/method",
   derived_file_directory = "results/models",
   datasets = datasets
 )
@@ -17,7 +15,6 @@ models$design <- models$design[1, ]
 
 scores <- load_call_git(
   "https://github.com/komparo/tde_metric_dummy",
-  "modules/metric",
   derived_file_directory = "results/scores",
   models = models
 )
