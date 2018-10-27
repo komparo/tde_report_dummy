@@ -1,49 +1,40 @@
-pull_or_clone <- function(repo, local_path) {
-  if (fs::dir_exists(local_path)) {
-    git2r::pull(local_path)
-  } else {
-    git2r::clone(repo, local_path = local_path)
-  }
-}
+library(certigo)
 
-pull_or_clone("https://github.com/komparo/tde_dataset_dyntoy", local_path = "modules/dataset")
-pull_or_clone("https://github.com/komparo/tde_method_random", local_path = "modules/method")
-pull_or_clone("https://github.com/komparo/tde_metric_dummy", local_path = "modules/metric")
+datasets <- load_call_git(
+  "https://github.com/komparo/tde_dataset_dyntoy",
+  "modules/dataset",
+  derived_file_directory = "results/datasets"
+)
+datasets$design <- datasets$design[1, ]
 
-source("modules/dataset/workflow.R")
-datasets <- generate_dataset_calls(
-  workflow_folder = "modules/dataset",
-  datasets_folder = "data/datasets",
-  dataset_design = dataset_design_all[1:4, ]
-) %>% call_collection(id = "datasets")
+models <- load_call_git(
+  "https://github.com/komparo/tde_method_random",
+  "modules/method",
+  derived_file_directory = "results/models",
+  datasets = datasets
+)
+models$design <- models$design[1, ]
 
-source("modules/method/workflow.R")
-methods <- generate_method_calls(
-  workflow_folder = "modules/method",
-  method_design = method_design_all[1, ],
+scores <- load_call_git(
+  "https://github.com/komparo/tde_metric_dummy",
+  "modules/metric",
+  derived_file_directory = "results/scores",
+  models = models
+)
+scores$design <- scores$design[1, ]
+
+report <- load_call(
+  "workflow.R",
+  derived_file_directory = "results/report",
   datasets = datasets,
-  models_folder = "data/models"
-) %>% call_collection(id = "methods")
-
-source("modules/metric/workflow.R")
-metrics <- generate_metric_calls(
-  workflow_folder = "modules/metric",
-  metric_design = metric_design_all[1, ],
-  methods = methods,
-  scores_folder = "data/scores"
-) %>% call_collection(id = "metrics")
-
-source('workflow.R')
-report <- generate_report_calls(
-  datasets = datasets,
-  methods = methods,
-  metrics = metrics
-) %>% call_collection(id = "reports")
+  models = models,
+  scores = scores
+)
 
 workflow <- workflow(
   datasets,
-  methods,
-  metrics,
+  models,
+  scores,
   report
 )
 

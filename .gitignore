@@ -3,5 +3,5 @@
 *.history
 .certigo
 report
-data
+results
 modules

@@ -51,6 +51,4 @@ scores %>%
 
 # Conclusion 🐈
 
-Cats are the best, dummy method is second
-
-Meow.
+Ceow.
