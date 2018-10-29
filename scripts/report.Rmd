@@ -46,9 +46,8 @@ scores %>%
   ggplot(aes(method_id, value)) +
     geom_boxplot() +
     theme_bw() +
-    facet_wrap(~metric)
+    facet_wrap(~metric, scales = "free_y")
 ```
 
-# Conclusion 🐈
-
-Ceow.
+# Conclusion
+CMew.
