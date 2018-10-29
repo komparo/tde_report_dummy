@@ -28,6 +28,9 @@ report <- load_call(
   scores = scores
 )
 
+#' @examples 
+#' report$calls[[1]]$debug()
+
 workflow <- workflow(
   datasets,
   models,

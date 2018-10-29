@@ -36,17 +36,17 @@ datasets %>%
 
 ```{r}
 scores <- inputs$scores %>% 
-  as_tibble() %>% 
-  mutate(
-    accuracy = map_dbl(accuracy, jsonlite::read_json, simplifyVector = TRUE)
-  )
+    as_tibble() %>% 
+    mutate(
+        scores = map(scores, jsonlite::read_json, simplifyVector = TRUE) %>% map(as_tibble)
+    ) %>% unnest(scores)
 
 scores %>% 
-  select(accuracy) %>% 
-  gather("metric", "value") %>% 
-  ggplot(aes(metric, value)) +
+  gather("metric", "value", -method_id, -dataset_id) %>% 
+  ggplot(aes(method_id, value)) +
     geom_boxplot() +
-    theme_bw()
+    theme_bw() +
+    facet_wrap(~metric)
 ```
 
 # Conclusion 🐈

@@ -11,12 +11,12 @@ get_call <- function(datasets, models, scores) {
     executor = docker_executor(container = "rocker/tidyverse"),
     rendered = derived_file(str_glue("index.html")),
     datasets = datasets$design %>% select(meta, expression) %>% map(object_set) %>% object_set(),
-    scores = scores$design %>% select(dataset_id, method_id, accuracy) %>% map(object_set) %>% object_set()
+    scores = scores$design %>% select(dataset_id, method_id, scores) %>% map(object_set) %>% object_set()
   )
   
   rmd_call(
     design = design,
-    inputs = c("script", "executor", "datasets", "scores"),
-    outputs = "rendered"
+    inputs = exprs(script, executor, datasets, scores),
+    outputs = exprs(rendered)
   )
 }
