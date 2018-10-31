@@ -1,13 +1,10 @@
 ---
-title: "Trajectory differential expression and cats"
+title: "Overall results"
 output: html_document
 ---
 
-# Cats 
-
-![](https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&h=350)
-
 # Datasets
+
 ```{r setup, echo=FALSE, include=FALSE}
 library(tidyverse)
 knitr::opts_knit$set(root.dir = knit_root_dir)
@@ -17,9 +14,9 @@ knitr::opts_knit$set(root.dir = knit_root_dir)
 datasets <- inputs[["datasets"]] %>% 
   as_tibble() %>% 
   mutate(
-    expression = map(expression, read.table, row.names = 1, header = TRUE, sep = ","),
-    n_cells = map_int(expression, nrow),
-    n_features = map_int(expression, ncol)
+    gene_expression = map(gene_expression, read.table, row.names = 1, header = TRUE, sep = ","),
+    n_cells = map_int(gene_expression, nrow),
+    n_features = map_int(gene_expression, ncol)
   )
 ```
 
@@ -34,7 +31,7 @@ datasets %>%
 
 # Evaluation
 
-```{r}
+```{r, fig.width=10, fig.height=10}
 scores <- inputs$scores %>% 
     as_tibble() %>% 
     mutate(
@@ -46,8 +43,10 @@ scores %>%
   ggplot(aes(method_id, value)) +
     geom_boxplot() +
     theme_bw() +
-    facet_wrap(~metric, scales = "free_y")
+    facet_wrap(~metric, scales = "free_x") +
+    coord_flip()
 ```
 
 # Conclusion
-CMew.
+
+Meow.

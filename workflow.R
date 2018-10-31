@@ -1,4 +1,5 @@
 library(certigo)
+library(tde)
 
 # installed together with certigo
 library(tidyr)
@@ -10,7 +11,7 @@ get_call <- function(datasets, models, scores) {
     script = script_file(str_glue("scripts/report.Rmd")),
     executor = docker_executor(container = "rocker/tidyverse"),
     rendered = derived_file(str_glue("index.html")),
-    datasets = datasets$design %>% select(meta, expression) %>% map(object_set) %>% object_set(),
+    datasets = datasets$design %>% select(meta, gene_expression) %>% map(object_set) %>% object_set(),
     scores = scores$design %>% select(dataset_id, method_id, scores) %>% map(object_set) %>% object_set()
   )
   
